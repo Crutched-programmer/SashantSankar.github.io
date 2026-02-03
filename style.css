@@ -12,13 +12,14 @@ body {
     position: relative;
     min-height: 100vh;
     letter-spacing: -0.01em;
+
 }
 
 @media (pointer: fine) {
     body {
         cursor: none;
     }
-}
+
 
 /* Define color variables */
 :root {
@@ -66,9 +67,11 @@ nav {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(16px);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+
     border-radius: 0 0 28px 28px;
     margin: 0 12px;
     width: calc(100% - 24px);
+
 }
 
 .nav-content {
@@ -282,6 +285,7 @@ nav a {
     z-index: 1;
 }
 
+
 .parallax-layer {
     position: absolute;
     pointer-events: none;
@@ -344,6 +348,8 @@ nav a {
     right: -160px;
     background: linear-gradient(120deg, rgba(255, 105, 180, 0.35), transparent);
 }
+
+
 
 .section h2 {
     font-size: 2em;
@@ -516,7 +522,9 @@ nav a {
     transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
     backdrop-filter: blur(12px);
+
     border-radius: 24px;
+
 }
 
 [data-theme="light"] {
@@ -747,7 +755,11 @@ nav {
 
 .project-card {
     padding: 25px;
+
     border-radius: 24px;
+
+    border-radius: 15px;
+
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -951,6 +963,7 @@ nav {
 
 
 .album-card {
+
     border-radius: 24px;
     overflow: hidden;
     width: 100%;
@@ -1133,7 +1146,11 @@ nav {
     text-align: center;
     padding: 30px;
     background: rgba(255, 255, 255, 0.06);
+
     border-radius: 24px;
+
+    border-radius: 20px;
+
     margin-bottom: 20px;
 }
 
@@ -1166,7 +1183,10 @@ nav {
 
 .contact-card {
     padding: 25px;
+
     border-radius: 24px;
+
+
     display: flex;
     align-items: center;
     gap: 20px;
@@ -1292,6 +1312,7 @@ nav {
     transform: translateY(0) scale(1);
 }
 
+
 .cursor-dot,
 .cursor-ring {
     position: fixed;
@@ -1330,6 +1351,8 @@ nav {
     height: 28px;
     border-color: rgba(255, 255, 255, 0.9);
 }
+
+
 
 @media (prefers-reduced-motion: reduce) {
     * {
