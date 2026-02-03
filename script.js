@@ -82,7 +82,68 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transitionDelay = `${Math.min(index * 70, 350)}ms`;
         observer.observe(el);
     });
-});
+
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+        const parallaxLayers = document.querySelectorAll('[data-parallax]');
+        let latestScroll = window.scrollY;
+        let ticking = false;
+
+        const updateParallax = () => {
+            parallaxLayers.forEach(layer => {
+                const speed = Number(layer.dataset.parallax) || 0;
+                layer.style.transform = `translate3d(0, ${latestScroll * speed}px, 0)`;
+            });
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            latestScroll = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        updateParallax();
+    }
+
+    const pointerFine = window.matchMedia('(pointer: fine)').matches;
+    if (pointerFine && !prefersReducedMotion) {
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        if (cursorDot && cursorRing) {
+            document.body.classList.add('cursor-active');
+            let mouseX = 0;
+            let mouseY = 0;
+            let ringX = 0;
+            let ringY = 0;
+
+            const animateRing = () => {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                cursorRing.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+                cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+                window.requestAnimationFrame(animateRing);
+            };
+
+            window.addEventListener('mousemove', (event) => {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+            });
+
+            window.addEventListener('mousedown', () => {
+                document.body.classList.add('cursor-press');
+            });
+
+            window.addEventListener('mouseup', () => {
+                document.body.classList.remove('cursor-press');
+            });
+
+            animateRing();
+        }
+    }
 
 // Add hover effect to project cards
 document.querySelectorAll('.project-card').forEach(card => {
