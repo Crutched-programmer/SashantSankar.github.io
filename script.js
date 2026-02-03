@@ -26,13 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
-    const themeSwitch = document.getElementById('theme-switch');
-    themeSwitch.checked = savedTheme === 'light';
-    
-    // Theme toggle listener
-    themeSwitch.addEventListener('change', () => {
-        toggleTheme();
-    });
 
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
@@ -60,6 +53,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+    });
+
+    const revealTargets = [
+        '.content',
+        '.skill-category',
+        '.project-card',
+        '.album-card',
+        '.contact-card',
+        '.contact-message'
+    ];
+
+    const revealElements = document.querySelectorAll(revealTargets.join(','));
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.2 }
+    );
+
+    revealElements.forEach((el, index) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = `${Math.min(index * 70, 350)}ms`;
+        observer.observe(el);
     });
 });
 

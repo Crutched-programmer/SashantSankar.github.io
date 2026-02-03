@@ -2,13 +2,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Consolas, monospace;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    min-height: 100vh;
+    letter-spacing: -0.01em;
 }
 
 /* Define color variables */
@@ -51,10 +54,12 @@ body {
 nav {
     position: fixed;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(0, 0, 0, 0.75);
     padding: 15px 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 .nav-content {
@@ -186,6 +191,8 @@ nav a {
     align-items: center;
     justify-content: center;
     padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
 }
 
 .content {
@@ -221,6 +228,49 @@ nav a {
     position: relative;
     overflow: hidden;
     color: var(--text-color);
+}
+
+#home::before,
+#home::after {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(152, 255, 152, 0.35), transparent 60%);
+    filter: blur(10px);
+    opacity: 0.6;
+    animation: float-orb 12s ease-in-out infinite;
+    z-index: 0;
+}
+
+#home::after {
+    width: 520px;
+    height: 520px;
+    right: -120px;
+    bottom: -140px;
+    background: radial-gradient(circle, rgba(255, 105, 180, 0.3), transparent 60%);
+    animation-delay: -4s;
+}
+
+#home::before {
+    left: -120px;
+    top: -160px;
+}
+
+@keyframes float-orb {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(20px, 30px, 0) scale(1.08);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
 }
 
 .section h2 {
@@ -298,23 +348,6 @@ nav a {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-}
-
-.gradient-name {
-    font-weight: bold;
-    color: var(--mint-green);
-    animation: color-cycle 2.5s linear infinite;
-    display: inline-block;
-    letter-spacing: 1px;
-    padding-left: 0.25em;
-}
-@keyframes color-cycle {
-    0% { color: var(--mint-green); }
-    20% { color: var(--pale-lime); }
-    40% { color: var(--peach); }
-    60% { color: var(--light-coral); }
-    80% { color: var(--rose-pink); }
-    100% { color: var(--mint-green); }
 }
 
 #home p {
@@ -406,9 +439,11 @@ nav a {
 
 /* Card and Container Backgrounds */
 .project-card, .album-card, .contact-card, .skill-category {
-    background-color: var(--bg-color);
-    border: 1px solid var(--text-color);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(12px);
 }
 
 [data-theme="light"] {
@@ -482,7 +517,7 @@ nav {
 
 /* Button Styles */
 .filter-btn, .cta-button {
-    background-color: var(--bg-color);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
     color: var(--text-color);
     border: 1px solid var(--text-color);
     transition: all 0.3s ease;
@@ -496,7 +531,7 @@ nav {
 
 /* Skills Tags */
 .skills-tags span {
-    background-color: var(--bg-color);
+    background: rgba(255, 255, 255, 0.06);
     color: var(--text-color);
     border: 1px solid var(--text-color);
     transition: all 0.3s ease;
@@ -535,7 +570,7 @@ nav {
 }
 
 .skill-category {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     padding: 25px;
     border-radius: 15px;
     text-align: center;
@@ -636,10 +671,8 @@ nav {
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.05);
     padding: 25px;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -748,7 +781,7 @@ nav {
 
 
 .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px) scale(1.01);
 }
 
 [data-theme="dark"] .project-card:hover {
@@ -798,7 +831,7 @@ nav {
 }
 
 .project-card {
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: none;
 }
 
 /* Responsive adjustments */
@@ -843,9 +876,7 @@ nav {
 
 
 .album-card {
-    background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
     width: 100%;
     display: flex;
@@ -1026,7 +1057,7 @@ nav {
 .contact-message {
     text-align: center;
     padding: 30px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     margin-bottom: 20px;
 }
@@ -1059,10 +1090,8 @@ nav {
 }
 
 .contact-card {
-    background: rgba(255, 255, 255, 0.05);
     padding: 25px;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     gap: 20px;
@@ -1121,18 +1150,20 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(152, 255, 152, 0.18), rgba(255, 105, 180, 0.15));
     color: inherit;
     text-decoration: none;
     padding: 15px 30px;
     border-radius: 30px;
     font-size: 1.1em;
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .cta-button:hover {
-    background: rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(152, 255, 152, 0.3), rgba(255, 105, 180, 0.25));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 105, 180, 0.2);
 }
 
 .cta-button i {
@@ -1172,5 +1203,25 @@ nav {
 
     .section {
         padding: 60px 15px;
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
