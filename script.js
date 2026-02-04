@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReducedMotion) {
         const parallaxLayers = document.querySelectorAll('[data-parallax]');
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animateRing();
         }
     }
-});
+
 
 // Add hover effect to project cards
 document.querySelectorAll('.project-card').forEach(card => {
