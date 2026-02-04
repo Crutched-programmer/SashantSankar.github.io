@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
 // Add hover effect to project cards
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
